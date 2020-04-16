@@ -99,55 +99,88 @@ cor(data_alphadiv[,c(4,5,9,10)])
 > > Second plot.
 > > ~~~
 > > P2 <- ggplot(data_alphadiv, aes(x = month, y = S.chao1))
-> >       + geom_boxplot(fill = c("black", "gray50", "gray80"))
-> >       + labs(title = 'Chao1', x = ' ', y = '', tag = "B") 
-> >       + geom_point()
+> >    + geom_boxplot(fill = c("black", "gray50", "gray80"))
+> >    + labs(title = 'Chao1', x = ' ', y = '', tag = "B") 
+> >    + geom_point()
+> > ~~~
+> > {: .language-r}
+> > 
+> > Third plot
+> > ~~~
+> > P3 <- ggplot(data_alphadiv, aes(x = month, y = data_evenness))   
+> >    + geom_boxplot(fill = c("black", "gray50", "gray80")) 
+> >    + labs(title= 'Eveness', x = ' ', y = '', tag = "C")  
+> >    + geom_point()   
+> > ~~~
+> > {: .language-r}
+> > 
+> > Fourth plot
+> > ~~~
+> > P4 <- ggplot(data_alphadiv, aes(x = month, y = data_shannon)) 
+> >    + geom_boxplot(fill = c("black", "gray50", "gray80"))    
+> >    + labs(title = 'Shannon', x = ' ', y = '', tag = "D")    
+> >    + geom_point()  
+> > ~~~
+> > {: .language-r}
+> > 
+> > The patchwork library is used here to arrange the plots.
+> > ~~~
+> > (P1 | P2) / (P3 | P4)
 > > ~~~
 > > {: .language-r}
 > {: .solution}
 {: .challenge}
-  
+
+
 > ## Exercise 
 > Plot the samples according to their harvesting sites and time points. Interpret the new plot as you did before.  
 > > ## Solution
-> > Richness plot.   
-> > `data_alphadiv %>%`  
-> > `  # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)`    
-> > `  mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September",`  
-> > `                                 "Parcey_July", "Parcey_August", "Parcey_September")) %>%`    
-> > `ggplot(aes(x = site_month, y = S.obs))`       
-> >  `  + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))`  
-> > `   + labs(title = 'Richness', x = ' ', y = '')`   
-> > `   + geom_point()`     
-> > `# x axis label reoriented for better readability`   
-> > `   + theme(axis.text.x = element_text(angle = 45, hjust = 1))`   
-> > `data_alphadiv %>%`   
-> > `# fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)`      
-> > `mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September",`      
-> >  `                                "Parcey_July", "Parcey_August", "Parcey_September")) %>%`       
-> >  `ggplot(aes(x = site_month, y = S.chao1))`     
-> >  `   + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))`
-> >  `   + labs(title= 'Chao1', x= ' ', y= '')`   
-> >  `    + geom_point()` 
-> > `     + theme(axis.text.x = element_text(angle = 45, hjust = 1))` 
-> > Evenness plot.
-> > `data_alphadiv %>%`    
-> > `  mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September",`    
-> > `                                 "Parcey_July", "Parcey_August", "Parcey_September")) %>%` 
-> > `  ggplot(aes(x = site_month, y = data_evenness))`    
-> > `   + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))`    
-> > `   + labs(title = 'Evenness', x = ' ', y = '')`
-> > `   + geom_point()`    
-> > `  + theme(axis.text.x = element_text(angle = 45, hjust = 1))`     
-> > Shannon plot.
-> > `data_alphadiv %>%`    
-> > `  mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September",`    
-> > `                                 "Parcey_July", "Parcey_August", "Parcey_September")) %>%` 
-> > `  ggplot(aes(x = site_month, y = data_shannon))`    
-> > `   + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))`    
-> > `   + labs(title = 'Evenness', x = ' ', y = '')`
-> > `   + geom_point()`    
-> > `   + theme(axis.text.x = element_text(angle = 45, hjust = 1))`     
+> > **Richness plot.**   
+> > ~~~
+> > data_alphadiv %>%  
+> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)    
+> >   mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", "Parcey_September")) %>%    
+> > ggplot(aes(x = site_month, y = S.obs))       
+> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))  
+> >    + labs(title = 'Richness', x = ' ', y = '')   
+> >    + geom_point()     
+> > # x axis label reoriented for better readability   
+> >    + theme(axis.text.x = element_text(angle = 45, hjust = 1))   
+> > data_alphadiv %>%   
+> > # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)      
+> > mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", "Parcey_September")) %>%       
+> >  ggplot(aes(x = site_month, y = S.chao1))     
+> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))
+> >    + labs(title= 'Chao1', x= ' ', y= '')   
+> >    + geom_point() 
+> >    + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+> > ~~~
+> > {: .language-r} 
+> > 
+> > **Evenness plot.**
+> > ~~~
+> > data_alphadiv %>%    
+> >   mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", 
+> > "Parcey_September")) %>% 
+> >   ggplot(aes(x = site_month, y = data_evenness))    
+> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))    
+> >    + labs(title = 'Evenness', x = ' ', y = '')
+> >    + geom_point()    
+> >   + theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+> > ~~~
+> > {: .language-r}   
+> > **Shannon plot.**
+> > ~~~
+> > data_alphadiv %>%    
+> >   mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", 
+> > "Parcey_September")) %>% 
+> >   ggplot(aes(x = site_month, y = data_shannon))    
+> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))    
+> >    + labs(title = 'Evenness', x = ' ', y = '')
+> >    + geom_point()    
+> >    + theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+> > ~~~
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
   
@@ -220,10 +253,13 @@ We can see now that:
 > ## Exercise
 > Determine the letters that you should add to your boxplot showing Shannon for each sampling site and dates.  
 > > ## Solution
-> > `aov_test <- aov(data_shannon ~ site_month, data = data_alphadiv)`     
-> > `hsd_test <- TukeyHSD(aov_test)`      
-> > `hsd_res <- HSD.test(aov_test, "site_month", group = TRUE)$groups`     
-> > `hsd_res`  
+> > ~~~
+> > aov_test <- aov(data_shannon ~ site_month, data = data_alphadiv)   
+> > hsd_test <- TukeyHSD(aov_test)
+> > hsd_res <- HSD.test(aov_test, "site_month", group = TRUE)$groups  
+> > hsd_res
+> > ~~~
+> > {: .language-r} 
 > {: .solution}
 {: .challenge}
 
@@ -238,12 +274,13 @@ We can see now that:
 > ## Remark
 > If you want to do a Kruskal-Wallis and a Dunn test, you can find the R code below.
 > ~~~
-> `kruskal.test(data_shannon ~ site, data = data_alphadiv)`   
-> `kruskal.test(data_shannon ~ month, data = data_alphadiv)`    
-> `PT <- dunnTest(data_shannon ~ month, data = data_alphadiv, method="bh") # require the FSA package`      
-> `PT2 <- PT$res`   
-> `cldList(comparison = PT2$Comparison, p.value = PT2$P.adj, threshold  = 0.05) # require the rcompanion package`    
+> kruskal.test(data_shannon ~ site, data = data_alphadiv)
+> kruskal.test(data_shannon ~ month, data = data_alphadiv)    
+> PT <- dunnTest(data_shannon ~ month, data = data_alphadiv, method="bh") # require the FSA package     
+> PT2 <- PT$res  
+> cldList(comparison = PT2$Comparison, p.value = PT2$P.adj, threshold  = 0.05) # require the rcompanion package   
 > ~~~
+> {: .language-r} 
 {: .callout}   
   
   
