@@ -1,14 +1,11 @@
 ---
 layout: lesson
-#title: "16S rRNA microbiome analysis"
 authors: Anouk Zancarini
 root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
 
-
-
-# Welcome 
+# Welcome!
 
 This tutorial will introduce you to Microbiota data analysis and guide you through the analyses, visualization and interpretation of microbial community composition and diversity. This page contains important information on how to use this tutorial.      
   
