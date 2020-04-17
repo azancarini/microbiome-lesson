@@ -51,19 +51,22 @@ This is the second way to install softwares and packages. It _should_ work but t
 >    - RStudio: [http://www.rstudio.com/download](http://www.rstudio.com/download) 
 >    - Git: [https://git-scm.com/downloads](https://git-scm.com/downloads) 
 >
-> 2. Within R/RStudio, install these packages:
->    - `tidyverse`
->    - `skimr`
->    - `plotly`
->    - `nycflights13`
->
-> To do so, open R and use the `install.packages()` function. 
+> 2. Within R/RStudio, install the required R packages. To do so, open R and use the `install.packages()` function. 
 >
 > ~~~
+> # these packages come from the "Comprehensive R Archive Network (CRAN)"
+> # The most recent version of the package will be installed 
 > install.packages("tidyverse")
-> install.packages("skimr")
-> install.packages("plotly")
-> install.packages("nycflights13")
+> install.packages("vegan")
+> install.packages("pheatmap")
+> install.packages("ade4")
+> install.packages("multcomp")
+> install.packages("patchwork")
+> install.packages("agricolae")
+> install.packages("BiocManager")
+>
+> # this package comes from Bioconductor 	 
+> BiocManager::install('phyloseq', version = '3.10', update = FALSE)
 > ~~~
 > {: .language-r}
 {: .prereq}
