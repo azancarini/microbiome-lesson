@@ -3,65 +3,60 @@ title: "Introduction"
 teaching: 30
 exercises: 0
 questions:
-- "What can I learn by doing this RNA-Seq lesson?"
-- "What are the tools that I will be using?"
-- "What are the tidy data principles?"
-- "What is working in a more open way beneficial?"
+- What will I learn during this workshop?  
+- What are the tools that I will be using?  
 objectives:
-- "Discover in what consists a typical RNA-Seq experiment."
-- "Know what results a RNA-Seq experiment can (and cannot) yield."
+- ""
 keypoints:
-- "An RNA-Seq experiment is also a normal experiment (control, treated, replication, etc.)."
-- A canonical RNA-Seq experiment consists in RNA library preparation followed by bioinformatic analyses."
-- "RNA-Seq yields a snapshot of individual gene expression levels (count table)."
-- "Upon completion of the bioinformatic steps, the analysis of RNA-Seq results can be done using the DESeq2 R package."
+- ""
 ---
+## Overview  
 
-## Table of Contents
-1. [Overview](#overview)
-2. [What you will learn](#what-you-will-learn)
-3. [Dataset used](#dataset-used)
+This tutorial will introduce you to Microbiota data analysis and guide you through the analyses, visualization and interpretation of microbial community composition and diversity.  
+  
+  
+## Objectives  
+- Be able to analyse, visualize and interpret microbiota data  
+  
+## Learning objectives  
+By the end of this tutorial you should be able to:  
+- Address sparsity, undersampling and uneven sampling depth using data filtering and normalization  
+- Visualize and interpret microbial community composition  
+- Define, calculate, and interpret alpha- and beta-diversity of microbial communities  
+- Generate and interpret multivariate analyses   
+  
+## Context, scientific question and data sets  
+Epilithic river biofilms are complex matrix-enclosed communities harboring a great diversity of prokaryotic and eukaryotic microorganisms. Deciphering the microbial community composition in river biofilms and identifying the impacts of environmental factors on these communities are of particular importance for attaining a better understanding of the functioning of riverine biofilms.      
 
+### Scientific context
+In this tutorial, we will investigate how bacterial communities within epilithic biofilms from the Loue River in France change along the river and over time (using a subset of the data previously published in [Zancarini et al. 2017, Scientific Reports 7:4344](https://www.nature.com/articles/s41598-017-04016-w). We will compare bacterial diversity and composition within biofilms harvested in two different sites (Cleron, located at the upstream area of the river, and Parcey, located at the downstream area of the river) and over the summer 2012 (*i.e.* July, August and September). For each site and harvesting time point, three samples were harvested. Then, DNA was extracted for each sample and the 16S gene was amplified and sequenced using 454-pyrosequencing.     
 
-## What you will learn
+Below are displayed a map of the sampling sites (from Zancarini et al. 2017) and the Loue at Cléron (source Wikipedia).  
 
-1. **What are the important things to know before doing an RNA-Seq experiment** 
-    - When should you perform a RNA-Seq experiment?  
-    - RNA-Seq experiments have to comply with good experimental design practices just like any experiment.
-    - What are biological replicates and why are they important?
-2. **How can I assess the quality of my RNA-Seq sequencing results?**
-    - FastQC.
-    - PCA plot.
-    - Sample clustering.
-3. **How do I perform a differential expression analysis on RNA-Seq results using R?**
-    - Raw and scaled counts: why do you need to scale counts between samples?
-    - What are the gene expression units I need to know: RPKM, FPKM, TPM.
-    - What are robust scaling/normalisation methods?
-    - How does the DESeq method works?
-4. **What are the plots that I can make from the differential analysis results?**
-    - Heatmap coupled with gene and sample clustering.
-    - Volcano plot.
+<img src="../img/Zancarini_Figure1.png" alt="Loue river" style="width:50%">
 
-## Dataset used 
+<img src="../img/Cleron.jpg" alt="Cleron Loue river" style="width:50%">
 
-We will make use of a published experimental dataset from a study made on the small model plant _Arabidopsis thaliana_ by [Vogel et al. (2016)](https://doi.org/10.1111/nph.14036). This study compares the response of 4 weeks old plantlets to different bacteria that live on the leaves of different plant species:
-- A known foliar pathogen called _Pseudomonas syringae_ strain DC3000. 
-- A commensal ("neutral") bacteria called _Methylobacterium extorquens_ strain PA1.
-- A commensal ("neutral") bacteria called _Sphingomonas melonis_ strain Fr1. 
+###  Datasets
 
-<img src="../img/experimental_design.png" width="600px" alt="experimental design" >
+A first bioinformatical analysis was required to create the occurence table based on the raw sequencing data given by the sequencing company. Usually, the *biom* format is used as an output format for this first analysis. The *biom* format has been developed to support encapsulation of core study data (occurence table data and sample/observation metadata) in a single file. Similar to the *biom* format, the *phyloseq* format also uses a single file containing the three tables. Microbial ecologists usually use Vegan and/or Phyloseq packages to analyse the occurence table.  
 
+To limit the number of packages used in this tutorial, the data sets are not in `biom` format but in `txt` (tabulation separated values) and consist of three different data files which will be converted to a single `phyloseq` file format:  
+  1. An OTU table: `data_loue_16S_nonnorm.txt`  
+  2. A sample metadata table: `data_loue_16S_nonnorm_grp.txt`  
+  3. A taxonomy table: `data_loue_16S_nonnorm_taxo.txt`  
+  
+## Strategy  
+We want to assess if there is any difference between bacterial communities within biofilms harvested in the upper (*Cleron*) and in the downstream (*Parcey*) area of the Loue River and over time during the summer 2012 (*i.e.* *July*, *August* and *September*). We will follow the following strategy:  
+  - Explore the data sets and check data properties (such as sparsity).  
+  - Define, calculate and interpret alpha-diversity (*i.e.* richness, evenness and shannon indices).  
+  - Filter the data and normalize the data by sample (*i.e.* correction for library size).  
+  - Visualize and interpret the bacterial community composition for the different treatments.  
+  - Explore the beta-diversity (the differences between samples) using Principal Covariates Analysis (PCoA) and perform a statistical test to test differences between treatments.  
 
-The original sequencing files can be found on the [Array Express database of the European Bioinformatic Institute](https://www.ebi.ac.uk/arrayexpress) by searching for the dataset accession number __E‐MTAB‐4683__.
-
-## Credits
-
-### Dataset
-The original RNA-Seq dataset used comes from Vogel et al. 2016:  https://doi.org/10.1111/nph.14036.  
 
 ### Teaching materials
 This lesson has been formatted according to the [Carpentries Foundation](https://carpentries.org/) lesson template and following their recommendations on how to teach researchers good practices in programming and data analysis.   
 
-This material builds from a lot of fantastic materials developed by others in the open data science community. Most of the content derives from the [Harvard Chan Bioinformatics Core](https://github.com/hbctraining) which are greatly acknowledge for the quality of their teaching materials.
 
 {% include links.md %}
